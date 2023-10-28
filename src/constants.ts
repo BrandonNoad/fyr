@@ -1,0 +1,6 @@
+export const GEOFENCING_TASK_NAME = 'TFT_GEOFENCING_TASK';
+export const REGION_IDENTIFIER_PREFIX = 'rgn_';
+export const RADIUS = 250;
+export const N10N_CHANNEL_ID_NEARBY_BEACON_ALERTS = 'nearby-beacon-alerts';
+export const BACKGROUND_FETCH_TASK_NAME = 'TFT_BACKGROUND_FETCH_TASK';
+export const BACKGROUND_FETCH_INTERVAL_MINUTES = 5;
