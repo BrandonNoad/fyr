@@ -33,8 +33,6 @@ import {
   fetchBeacons,
 } from '~/util/geofencing';
 
-import type { StackNavigationProp } from '@react-navigation/stack';
-import type { StackNavigator } from '~/navigation/types';
 import type { Beacon } from '~/util/geofencing';
 
 const useLocationPermissions = () => {
@@ -124,11 +122,7 @@ const stopBackgroundFetch = async () => {
   }
 };
 
-type Props = {
-  navigation: StackNavigationProp<StackNavigator, 'BeaconList'>;
-};
-
-export const BeaconList = ({ navigation }: Props) => {
+export const BeaconList = () => {
   const { apiKey } = useApiKey();
   const locationPermissionsStatus = useLocationPermissions();
   const notificationsPermissionsStatus = useNotificationsPermissions();
@@ -177,8 +171,9 @@ export const BeaconList = ({ navigation }: Props) => {
     isLoading
   ) {
     return (
-      <View className="h-full flex-1 justify-center bg-slate-200">
-        <ActivityIndicator size="large" className="text-orange-600" />
+      <View className="h-full flex-1 justify-center items-center bg-slate-200">
+        <ActivityIndicator size="large" color="#ea580c" />
+        <StatusBar style="light" />
       </View>
     );
   }
@@ -201,38 +196,44 @@ export const BeaconList = ({ navigation }: Props) => {
   }
 
   return (
-    <View className="px-4 py-6 h-full flex-1 bg-slate-200">
-      <FlatList
-        className=""
-        data={data}
-        renderItem={({ item }) => (
-          <View className="mb-3">
-            <Text className="text-base font-medium" selectable={true}>
-              {item.query}
-            </Text>
-            <Text className="text-base" selectable={true}>
-              Node:{' '}
-              <Text
-                className="text-blue-700"
-                onPress={() => {
-                  Linking.openURL(toTanaUrl(item.nodeId));
-                }}
-                selectable={true}
-              >
-                {item.nodeId}
+    <View className="px-4 py-6 h-full flex-1 justify-between bg-slate-200">
+      {data.length > 0 ? (
+        <FlatList
+          className=""
+          data={data}
+          renderItem={({ item }) => (
+            <View className="mb-3">
+              <Text className="text-base font-medium" selectable={true}>
+                {item.query}
               </Text>
-            </Text>
-          </View>
-        )}
-        keyExtractor={(item) => item.id.toString()}
-        refreshControl={
-          <RefreshControl
-            refreshing={isRefetchingByUser}
-            onRefresh={refetchByUser}
-          />
-        }
-      />
-      <View className="flex flex-row justify-center gap-3 items-center ">
+              <Text className="text-base" selectable={true}>
+                Node:{' '}
+                <Text
+                  className="text-blue-700"
+                  onPress={() => {
+                    Linking.openURL(toTanaUrl(item.nodeId));
+                  }}
+                  selectable={true}
+                >
+                  {item.nodeId}
+                </Text>
+              </Text>
+            </View>
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefetchingByUser}
+              onRefresh={refetchByUser}
+            />
+          }
+        />
+      ) : (
+        <View className="flex flex-row justify-center">
+          <Text className="text-base font-medium">No beacons found!</Text>
+        </View>
+      )}
+      <View className="flex flex-row justify-center gap-3 items-center">
         <Text
           className="text-base font-medium text-gray-900"
           onPress={async () => {

@@ -6,8 +6,6 @@ import * as Notifications from 'expo-notifications';
 
 import { N10N_CHANNEL_ID_NEARBY_BEACON_ALERTS } from '~/constants';
 
-import type { StackNavigationProp } from '@react-navigation/stack';
-import type { StackNavigator } from '~/navigation/types';
 import type { TaskManagerTask } from 'expo-task-manager';
 
 const useTasks = () => {
@@ -23,11 +21,7 @@ const useTasks = () => {
   return tasks;
 };
 
-type Props = {
-  navigation: StackNavigationProp<StackNavigator, 'Debug'>;
-};
-
-export const Debug = ({}: Props) => {
+export const Debug = () => {
   const tasks = useTasks();
 
   return (

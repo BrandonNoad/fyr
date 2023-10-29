@@ -25,6 +25,10 @@ const beaconToRegionIdentifier = (beacon: Beacon) =>
   `${REGION_IDENTIFIER_PREFIX}${beacon.nodeId}/${beacon.id}`;
 
 export const startGeofencing = async (beacons: Beacon[]) => {
+  if (beacons.length === 0) {
+    return;
+  }
+
   // Here is the type definition of a Tana node id:
   // const idType = z
   //   .string()

@@ -1,17 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, TextInput, KeyboardAvoidingView } from 'react-native';
 
 import { useApiKey } from '~/components/ApiKeyContext';
 
-import type { StackNavigationProp } from '@react-navigation/stack';
-import type { StackNavigator } from '~/navigation/types';
-
-type Props = {
-  navigation: StackNavigationProp<StackNavigator, 'BeaconList'>;
-};
-
-export const AuthN = ({ navigation }: Props) => {
+export const AuthN = () => {
   const { setApiKey } = useApiKey();
   const [newApiKey, onChangeText] = useState('');
 
